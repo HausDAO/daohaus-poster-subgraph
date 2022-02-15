@@ -1,14 +1,13 @@
-# DAOHaus Boosts Subgraph
+# DAOHaus Poster Subgraph
 
 ### Current boost data indexed
 
 - Transmutations
 - Uberhaus Minion
 
-
 ### License
 
-The DAOhaus subgraphs are for querying data for Moloch DAOs built on the Moloch DAO framework smart contracts <https://github.com/MolochVentures/moloch>. 
+The DAOhaus subgraphs are for querying data for Moloch DAOs built on the Moloch DAO framework smart contracts <https://github.com/MolochVentures/moloch>.
 
 Copyright (C) 2021 DAOhaus
 
@@ -19,8 +18,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
+along with this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.

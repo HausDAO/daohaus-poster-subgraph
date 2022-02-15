@@ -12,175 +12,30 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class Shaman extends Entity {
+export class Content extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("createdAt", Value.fromString(""));
-    this.set("shamanAddress", Value.fromBytes(Bytes.empty()));
-    this.set("molochAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shamanType", Value.fromString(""));
-    this.set("details", Value.fromString(""));
   }
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Shaman entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save Shaman entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("Shaman", id.toString(), this);
-    }
-  }
-
-  static load(id: string): Shaman | null {
-    return changetype<Shaman | null>(store.get("Shaman", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get createdAt(): string {
-    let value = this.get("createdAt");
-    return value!.toString();
-  }
-
-  set createdAt(value: string) {
-    this.set("createdAt", Value.fromString(value));
-  }
-
-  get shamanAddress(): Bytes {
-    let value = this.get("shamanAddress");
-    return value!.toBytes();
-  }
-
-  set shamanAddress(value: Bytes) {
-    this.set("shamanAddress", Value.fromBytes(value));
-  }
-
-  get molochAddress(): Bytes {
-    let value = this.get("molochAddress");
-    return value!.toBytes();
-  }
-
-  set molochAddress(value: Bytes) {
-    this.set("molochAddress", Value.fromBytes(value));
-  }
-
-  get shamanType(): string {
-    let value = this.get("shamanType");
-    return value!.toString();
-  }
-
-  set shamanType(value: string) {
-    this.set("shamanType", Value.fromString(value));
-  }
-
-  get details(): string {
-    let value = this.get("details");
-    return value!.toString();
-  }
-
-  set details(value: string) {
-    this.set("details", Value.fromString(value));
-  }
-
-  get minionSafeConfig(): string | null {
-    let value = this.get("minionSafeConfig");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set minionSafeConfig(value: string | null) {
-    if (!value) {
-      this.unset("minionSafeConfig");
-    } else {
-      this.set("minionSafeConfig", Value.fromString(<string>value));
-    }
-  }
-
-  get yeeterConfig(): string | null {
-    let value = this.get("yeeterConfig");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set yeeterConfig(value: string | null) {
-    if (!value) {
-      this.unset("yeeterConfig");
-    } else {
-      this.set("yeeterConfig", Value.fromString(<string>value));
-    }
-  }
-
-  get yeets(): Array<string> | null {
-    let value = this.get("yeets");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set yeets(value: Array<string> | null) {
-    if (!value) {
-      this.unset("yeets");
-    } else {
-      this.set("yeets", Value.fromStringArray(<Array<string>>value));
-    }
-  }
-}
-
-export class MinionSafeConfig extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-
-    this.set("createdAt", Value.fromString(""));
-    this.set("molochAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shamanAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shaman", Value.fromString(""));
-    this.set("safeAddress", Value.fromBytes(Bytes.empty()));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save MinionSafeConfig entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save MinionSafeConfig entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("MinionSafeConfig", id.toString(), this);
-    }
-  }
-
-  static load(id: string): MinionSafeConfig | null {
-    return changetype<MinionSafeConfig | null>(
-      store.get("MinionSafeConfig", id)
+    assert(id !== null, "Cannot save Content entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Content entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
     );
+    store.set("Content", id.toString(), this);
+  }
+
+  static load(id: string): Content | null {
+    return store.get("Content", id) as Content | null;
   }
 
   get id(): string {
     let value = this.get("id");
-    return value!.toString();
+    return value.toString();
   }
 
   set id(value: string) {
@@ -189,348 +44,72 @@ export class MinionSafeConfig extends Entity {
 
   get createdAt(): string {
     let value = this.get("createdAt");
-    return value!.toString();
+    return value.toString();
   }
 
   set createdAt(value: string) {
     this.set("createdAt", Value.fromString(value));
   }
 
-  get molochAddress(): Bytes {
+  get transactionHash(): Bytes {
+    let value = this.get("transactionHash");
+    return value.toBytes();
+  }
+
+  set transactionHash(value: Bytes) {
+    this.set("transactionHash", Value.fromBytes(value));
+  }
+
+  get molochAddress(): string | null {
     let value = this.get("molochAddress");
-    return value!.toBytes();
-  }
-
-  set molochAddress(value: Bytes) {
-    this.set("molochAddress", Value.fromBytes(value));
-  }
-
-  get shamanAddress(): Bytes {
-    let value = this.get("shamanAddress");
-    return value!.toBytes();
-  }
-
-  set shamanAddress(value: Bytes) {
-    this.set("shamanAddress", Value.fromBytes(value));
-  }
-
-  get shaman(): string {
-    let value = this.get("shaman");
-    return value!.toString();
-  }
-
-  set shaman(value: string) {
-    this.set("shaman", Value.fromString(value));
-  }
-
-  get safeAddress(): Bytes {
-    let value = this.get("safeAddress");
-    return value!.toBytes();
-  }
-
-  set safeAddress(value: Bytes) {
-    this.set("safeAddress", Value.fromBytes(value));
-  }
-}
-
-export class YeeterConfig extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-
-    this.set("createdAt", Value.fromString(""));
-    this.set("molochAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shamanAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shaman", Value.fromString(""));
-    this.set("maxTarget", Value.fromBigInt(BigInt.zero()));
-    this.set("raiseEndTime", Value.fromBigInt(BigInt.zero()));
-    this.set("raiseStartTime", Value.fromBigInt(BigInt.zero()));
-    this.set("maxUnits", Value.fromBigInt(BigInt.zero()));
-    this.set("pricePerUnit", Value.fromBigInt(BigInt.zero()));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save YeeterConfig entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save YeeterConfig entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("YeeterConfig", id.toString(), this);
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
     }
   }
 
-  static load(id: string): YeeterConfig | null {
-    return changetype<YeeterConfig | null>(store.get("YeeterConfig", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get createdAt(): string {
-    let value = this.get("createdAt");
-    return value!.toString();
-  }
-
-  set createdAt(value: string) {
-    this.set("createdAt", Value.fromString(value));
-  }
-
-  get molochAddress(): Bytes {
-    let value = this.get("molochAddress");
-    return value!.toBytes();
-  }
-
-  set molochAddress(value: Bytes) {
-    this.set("molochAddress", Value.fromBytes(value));
-  }
-
-  get shamanAddress(): Bytes {
-    let value = this.get("shamanAddress");
-    return value!.toBytes();
-  }
-
-  set shamanAddress(value: Bytes) {
-    this.set("shamanAddress", Value.fromBytes(value));
-  }
-
-  get shaman(): string {
-    let value = this.get("shaman");
-    return value!.toString();
-  }
-
-  set shaman(value: string) {
-    this.set("shaman", Value.fromString(value));
-  }
-
-  get maxTarget(): BigInt {
-    let value = this.get("maxTarget");
-    return value!.toBigInt();
-  }
-
-  set maxTarget(value: BigInt) {
-    this.set("maxTarget", Value.fromBigInt(value));
-  }
-
-  get raiseEndTime(): BigInt {
-    let value = this.get("raiseEndTime");
-    return value!.toBigInt();
-  }
-
-  set raiseEndTime(value: BigInt) {
-    this.set("raiseEndTime", Value.fromBigInt(value));
-  }
-
-  get raiseStartTime(): BigInt {
-    let value = this.get("raiseStartTime");
-    return value!.toBigInt();
-  }
-
-  set raiseStartTime(value: BigInt) {
-    this.set("raiseStartTime", Value.fromBigInt(value));
-  }
-
-  get maxUnits(): BigInt {
-    let value = this.get("maxUnits");
-    return value!.toBigInt();
-  }
-
-  set maxUnits(value: BigInt) {
-    this.set("maxUnits", Value.fromBigInt(value));
-  }
-
-  get pricePerUnit(): BigInt {
-    let value = this.get("pricePerUnit");
-    return value!.toBigInt();
-  }
-
-  set pricePerUnit(value: BigInt) {
-    this.set("pricePerUnit", Value.fromBigInt(value));
-  }
-}
-
-export class Yeet extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-
-    this.set("createdAt", Value.fromString(""));
-    this.set("shamanAddress", Value.fromBytes(Bytes.empty()));
-    this.set("molochAddress", Value.fromBytes(Bytes.empty()));
-    this.set("shaman", Value.fromString(""));
-    this.set("contributorAddress", Value.fromBytes(Bytes.empty()));
-    this.set("amount", Value.fromBigInt(BigInt.zero()));
-    this.set("lootToGive", Value.fromBigInt(BigInt.zero()));
-    this.set("lootToPlatform", Value.fromBigInt(BigInt.zero()));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Yeet entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save Yeet entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("Yeet", id.toString(), this);
+  set molochAddress(value: string | null) {
+    if (value === null) {
+      this.unset("molochAddress");
+    } else {
+      this.set("molochAddress", Value.fromString(value as string));
     }
   }
 
-  static load(id: string): Yeet | null {
-    return changetype<Yeet | null>(store.get("Yeet", id));
+  get memberAddress(): Bytes {
+    let value = this.get("memberAddress");
+    return value.toBytes();
   }
 
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
+  set memberAddress(value: Bytes) {
+    this.set("memberAddress", Value.fromBytes(value));
   }
 
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
+  get contentType(): string {
+    let value = this.get("contentType");
+    return value.toString();
   }
 
-  get createdAt(): string {
-    let value = this.get("createdAt");
-    return value!.toString();
+  set contentType(value: string) {
+    this.set("contentType", Value.fromString(value));
   }
 
-  set createdAt(value: string) {
-    this.set("createdAt", Value.fromString(value));
+  get location(): string {
+    let value = this.get("location");
+    return value.toString();
   }
 
-  get shamanAddress(): Bytes {
-    let value = this.get("shamanAddress");
-    return value!.toBytes();
+  set location(value: string) {
+    this.set("location", Value.fromString(value));
   }
 
-  set shamanAddress(value: Bytes) {
-    this.set("shamanAddress", Value.fromBytes(value));
+  get rawData(): string {
+    let value = this.get("rawData");
+    return value.toString();
   }
 
-  get molochAddress(): Bytes {
-    let value = this.get("molochAddress");
-    return value!.toBytes();
-  }
-
-  set molochAddress(value: Bytes) {
-    this.set("molochAddress", Value.fromBytes(value));
-  }
-
-  get shaman(): string {
-    let value = this.get("shaman");
-    return value!.toString();
-  }
-
-  set shaman(value: string) {
-    this.set("shaman", Value.fromString(value));
-  }
-
-  get contributorAddress(): Bytes {
-    let value = this.get("contributorAddress");
-    return value!.toBytes();
-  }
-
-  set contributorAddress(value: Bytes) {
-    this.set("contributorAddress", Value.fromBytes(value));
-  }
-
-  get amount(): BigInt {
-    let value = this.get("amount");
-    return value!.toBigInt();
-  }
-
-  set amount(value: BigInt) {
-    this.set("amount", Value.fromBigInt(value));
-  }
-
-  get lootToGive(): BigInt {
-    let value = this.get("lootToGive");
-    return value!.toBigInt();
-  }
-
-  set lootToGive(value: BigInt) {
-    this.set("lootToGive", Value.fromBigInt(value));
-  }
-
-  get lootToPlatform(): BigInt {
-    let value = this.get("lootToPlatform");
-    return value!.toBigInt();
-  }
-
-  set lootToPlatform(value: BigInt) {
-    this.set("lootToPlatform", Value.fromBigInt(value));
-  }
-}
-
-export class YeeterPlatform extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-
-    this.set("createdAt", Value.fromString(""));
-    this.set("platformFee", Value.fromBigInt(BigInt.zero()));
-    this.set("lootPerUnit", Value.fromBigInt(BigInt.zero()));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save YeeterPlatform entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        "Cannot save YeeterPlatform entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
-      );
-      store.set("YeeterPlatform", id.toString(), this);
-    }
-  }
-
-  static load(id: string): YeeterPlatform | null {
-    return changetype<YeeterPlatform | null>(store.get("YeeterPlatform", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get createdAt(): string {
-    let value = this.get("createdAt");
-    return value!.toString();
-  }
-
-  set createdAt(value: string) {
-    this.set("createdAt", Value.fromString(value));
-  }
-
-  get platformFee(): BigInt {
-    let value = this.get("platformFee");
-    return value!.toBigInt();
-  }
-
-  set platformFee(value: BigInt) {
-    this.set("platformFee", Value.fromBigInt(value));
-  }
-
-  get lootPerUnit(): BigInt {
-    let value = this.get("lootPerUnit");
-    return value!.toBigInt();
-  }
-
-  set lootPerUnit(value: BigInt) {
-    this.set("lootPerUnit", Value.fromBigInt(value));
+  set rawData(value: string) {
+    this.set("rawData", Value.fromString(value));
   }
 }

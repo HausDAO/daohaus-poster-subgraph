@@ -1,12 +1,12 @@
 {
-  "name": "daohaus-shamans",
+  "name": "daohaus-poster",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create odyssy-automaton/daohaus-boosts --node https://api.thegraph.com/deploy/",
+    "create": "graph create odyssy-automaton/daohaus-poster --node https://api.thegraph.com/deploy/",
     "codegen": "graph codegen",
     "build": "graph build",
-    "create-local": "graph create odyssy-automaton/daohaus-boosts --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy odyssy-automaton/daohaus-boosts --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "create-local": "graph create odyssy-automaton/daohaus-poster --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy odyssy-automaton/daohaus-poster --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
     "build:all": "yarn codegen && yarn build",
     "prepare:mainnet": "node manifests/deploy-prep.js mainnet",
     "prepare:xdai": "node manifests/deploy-prep.js xdai",
@@ -15,16 +15,17 @@
     "prepare:rinkeby": "node manifests/deploy-prep.js rinkeby",
     "prepare:arbitrum": "node manifests/deploy-prep.js arbitrum-one",
     "prepare:celo": "node manifests/deploy-prep.js celo",
-    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans",
-    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-xdai",
-    "deploy:matic": "yarn prepare:matic && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-matic",
-    "deploy:kovan": "yarn prepare:kovan && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-kovan",
-    "deploy:rinkeby": "yarn prepare:rinkeby && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-rinkeby",
-    "deploy:arbitrum": "yarn prepare:arbitrum && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-arbitrum",
-    "deploy:celo": "yarn prepare:celo && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-shamans-celo"
+    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster",
+    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-xdai",
+    "deploy:matic": "yarn prepare:matic && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-matic",
+    "deploy:kovan": "yarn prepare:kovan && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-kovan",
+    "deploy:rinkeby": "yarn prepare:rinkeby && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-rinkeby",
+    "deploy:arbitrum": "yarn prepare:arbitrum && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-arbitrum",
+    "deploy:celo": "yarn prepare:celo && yarn build:all && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ odyssy-automaton/daohaus-poster-celo"
   },
   "dependencies": {
-    "@graphprotocol/graph-ts": "^0.22.1",
+    "@graphprotocol/graph-cli": "0.21.1",
+    "@graphprotocol/graph-ts": "0.20.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "js-yaml": "^3.13.1"

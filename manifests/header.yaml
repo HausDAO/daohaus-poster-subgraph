@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: DAOHaus Shamans Subgraph
-repository: https://github.com/hausdao/daohaus-shamans-subgraph
+description: DAOHaus Poster Subgraph
+repository: https://github.com/hausdao/daohaus-poster-subgraph
 schema:
   file: ./schema.graphql
 dataSources: []

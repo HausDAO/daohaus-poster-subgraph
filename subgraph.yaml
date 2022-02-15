@@ -1,71 +1,32 @@
 specVersion: 0.0.2
-description: DAOHaus Shamans Subgraph
-repository: 'https://github.com/hausdao/daohaus-shamans-subgraph'
+description: DAOHaus Poster Subgraph
+repository: 'https://github.com/hausdao/daohaus-poster-subgraph'
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: V22AndSafeMinionFactory
-    network: xdai
+    name: Poster
+    network: rinkeby
     source:
-      address: '0xb30c2F83c027667C66A2CdFE0D3ba4Ba6B834F04'
-      abi: V22AndSafeMinionFactory
-      startBlock: 19988137
+      address: '0x917d84787A266F9D649d519A7Ec8445eA43514D8'
+      abi: Poster
+      startBlock: 10065090
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Shaman
-        - MinionSafeConfig
+        - Post
+        - Minion
       abis:
-        - name: V22AndSafeMinionFactory
-          file: ./abis/V22AndSafeMinionFactory.json
+        - name: Poster
+          file: ./abis/Poster.json
+        - name: Minion
+          file: ./abis/Minion.json
+        - name: Moloch
+          file: ./abis/Moloch.json
       eventHandlers:
-        - event: 'SummonComplete(address,indexed address,address,address,string)'
-          handler: handleSummonComplete
-      file: ./src/v22-safe-minion-factory-mapping.ts
-  - kind: ethereum/contract
-    name: YeeterFactory
-    network: xdai
-    source:
-      address: '0x398e3a9c53C30Cac5B1ce9cfAbbE011338703686'
-      abi: YeeterFactory
-      startBlock: 19988177
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      entities:
-        - Shaman
-        - YeeterConfig
-      abis:
-        - name: YeeterFactory
-          file: ./abis/YeeterFactory.json
-      eventHandlers:
-        - event: >-
-            SummonYeetComplete(indexed
-            address,address,address,uint256,uint256,uint256,uint256,uint256,string)
-          handler: handleSummonYeeter
-        - event: 'PlatformFeeUpdate(uint256,uint256)'
-          handler: handlePlatformFeeUpdate
-      file: ./src/yeeter-factory-mapping.ts
-templates:
-  - kind: ethereum/contract
-    name: YeeterTemplate
-    network: xdai
-    source:
-      abi: YeeterShaman
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.5
-      language: wasm/assemblyscript
-      file: ./src/yeeter-mapping.ts
-      entities:
-        - Yeet
-      abis:
-        - name: YeeterShaman
-          file: ./abis/YeeterShaman.json
-      eventHandlers:
-        - event: 'YeetReceived(indexed address,uint256,address,uint256,uint256)'
-          handler: handleYeetReceived
+        - event: 'NewPost(indexed address,string,indexed string)'
+          handler: handleNewPost
+      file: ./src/poster-mapping.ts
+templates: []
