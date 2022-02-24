@@ -51,46 +51,50 @@ export namespace parser {
   export function createBasicContent(
     object: TypedMap<string, JSONValue>,
     molochAddress: string,
-    event: NewPost
+    event: NewPost,
+    ratified: boolean
   ): Content {
-    // todo: separate the paring form the entity creation
     let entityId = molochAddress
       .concat("-content-")
       .concat(event.block.timestamp.toString());
     let entity = new Content(entityId);
 
-    // let content = parser.getStringFromJson(object, "content");
-    // if (content.error != "none") {
-    //   log.error('Post with content ID {} errored on "type" parameter', [
-    //     event.transaction.hash.toHexString(),
-    //   ]);
-    //   return entity;
-    // }
+    let content = parser.getStringFromJson(object, "content");
+    if (content.error != "none") {
+      return entity;
+    }
+    entity.content = content.data;
 
     let contentType = parser.getStringFromJson(object, "contentType");
     if (contentType.error != "none") {
-      log.error('Post with content ID {} errored on "type" parameter', [
-        event.transaction.hash.toHexString(),
-      ]);
       return entity;
     }
+    entity.contentType = contentType.data;
 
     let location = parser.getStringFromJson(object, "location");
     if (location.error != "none") {
-      log.error('Post with content ID {} errored on "type" parameter', [
-        event.transaction.hash.toHexString(),
-      ]);
       return entity;
+    }
+    entity.location = location.data;
+
+    let title = parser.getStringFromJson(object, "title");
+    if (title.error != "none") {
+    } else {
+      entity.title = title.data;
+    }
+
+    let description = parser.getStringFromJson(object, "description");
+    if (description.error != "none") {
+    } else {
+      entity.description = description.data;
     }
 
     entity.createdAt = event.block.timestamp.toString();
     entity.transactionHash = event.transaction.hash;
     entity.molochAddress = molochAddress;
     entity.memberAddress = event.transaction.from;
-    // entity.content = content.data;
-    entity.contentType = contentType.data;
-    entity.location = location.data;
     entity.rawData = event.params.content;
+    entity.ratified = ratified;
 
     entity.save();
 

@@ -4,7 +4,11 @@ type Content @entity {
   transactionHash: Bytes!
   molochAddress: String
   memberAddress: Bytes!
+  content: String!
   contentType: String!
   location: String!
+  title: String
+  description: String
+  ratified: Boolean!
   rawData: String!
 }

@@ -86,6 +86,15 @@ export class Content extends Entity {
     this.set("memberAddress", Value.fromBytes(value));
   }
 
+  get content(): string {
+    let value = this.get("content");
+    return value.toString();
+  }
+
+  set content(value: string) {
+    this.set("content", Value.fromString(value));
+  }
+
   get contentType(): string {
     let value = this.get("contentType");
     return value.toString();
@@ -102,6 +111,49 @@ export class Content extends Entity {
 
   set location(value: string) {
     this.set("location", Value.fromString(value));
+  }
+
+  get title(): string | null {
+    let value = this.get("title");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set title(value: string | null) {
+    if (value === null) {
+      this.unset("title");
+    } else {
+      this.set("title", Value.fromString(value as string));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
+  get ratified(): boolean {
+    let value = this.get("ratified");
+    return value.toBoolean();
+  }
+
+  set ratified(value: boolean) {
+    this.set("ratified", Value.fromBoolean(value));
   }
 
   get rawData(): string {

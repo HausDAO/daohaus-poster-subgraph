@@ -8,8 +8,6 @@ export namespace validator {
     molochAddress: string,
     senderAddress: Address
   ): boolean {
-    // let address = changetype<Address>(minionAddress);
-    // let contract = SafeMinion.bind(address);
     let minionContract = Minion.bind(senderAddress);
 
     let result = minionContract.try_moloch();
@@ -33,6 +31,8 @@ export namespace validator {
       log.info("^^^^^ member call failed; {}", [senderAddress.toHexString()]);
       return false;
     }
+
+    log.info("^^^^^ member found; {}", [result.value.value1.toString()]);
 
     return result.value.value1 > constants.BIGINT_ZERO;
   }

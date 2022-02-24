@@ -22,24 +22,27 @@ export function handleNewPost(event: NewPost): void {
   }
   let molochAddress = moloch.data;
 
-  log.info("minion call. molochAddress {}, minion", [
-    molochAddress,
-    event.transaction.from.toHexString(),
-  ]);
+  if (event.params.tag.toHexString() == constants.DAOHAUS_DOCUMENT_MINION) {
+    if (!validator.isMolochMinion(molochAddress, event.transaction.from)) {
+      return;
+    }
 
-  // if (!validator.isMolochMinion(molochAddress, event.transaction.from)) {
-  //   return;
-  // }
+    log.info("valid content daohaus.document.minion: {}", [
+      event.params.content,
+    ]);
 
-  // if (!validator.isMolochMember(molochAddress, event.transaction.from)) {
-  //   return;
-  // }
+    parser.createBasicContent(object, molochAddress, event, true);
+  }
 
-  log.info("valid content: {}", [event.params.content]);
+  if (event.params.tag.toHexString() == constants.DAOHAUS_DOCUMENT_MEMBER) {
+    if (!validator.isMolochMember(molochAddress, event.transaction.from)) {
+      return;
+    }
 
-  if (event.params.tag.toHexString() == constants.MANIFESTO_TAG_STRING) {
-    log.info("****matched manifesto", []);
+    log.info("valid content daohaus.document.member: {}", [
+      event.params.content,
+    ]);
 
-    parser.createBasicContent(object, molochAddress, event);
+    parser.createBasicContent(object, molochAddress, event, false);
   }
 }
