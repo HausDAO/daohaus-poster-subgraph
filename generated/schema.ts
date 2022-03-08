@@ -16,26 +16,37 @@ export class Content extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
+
+    this.set("createdAt", Value.fromString(""));
+    this.set("transactionHash", Value.fromBytes(Bytes.empty()));
+    this.set("memberAddress", Value.fromBytes(Bytes.empty()));
+    this.set("content", Value.fromString(""));
+    this.set("contentType", Value.fromString(""));
+    this.set("location", Value.fromString(""));
+    this.set("ratified", Value.fromBoolean(false));
+    this.set("rawData", Value.fromString(""));
   }
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Content entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save Content entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("Content", id.toString(), this);
+    assert(id != null, "Cannot save Content entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Content entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Content", id.toString(), this);
+    }
   }
 
   static load(id: string): Content | null {
-    return store.get("Content", id) as Content | null;
+    return changetype<Content | null>(store.get("Content", id));
   }
 
   get id(): string {
     let value = this.get("id");
-    return value.toString();
+    return value!.toString();
   }
 
   set id(value: string) {
@@ -44,7 +55,7 @@ export class Content extends Entity {
 
   get createdAt(): string {
     let value = this.get("createdAt");
-    return value.toString();
+    return value!.toString();
   }
 
   set createdAt(value: string) {
@@ -53,7 +64,7 @@ export class Content extends Entity {
 
   get transactionHash(): Bytes {
     let value = this.get("transactionHash");
-    return value.toBytes();
+    return value!.toBytes();
   }
 
   set transactionHash(value: Bytes) {
@@ -62,7 +73,7 @@ export class Content extends Entity {
 
   get molochAddress(): string | null {
     let value = this.get("molochAddress");
-    if (value === null || value.kind == ValueKind.NULL) {
+    if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
       return value.toString();
@@ -70,16 +81,16 @@ export class Content extends Entity {
   }
 
   set molochAddress(value: string | null) {
-    if (value === null) {
+    if (!value) {
       this.unset("molochAddress");
     } else {
-      this.set("molochAddress", Value.fromString(value as string));
+      this.set("molochAddress", Value.fromString(<string>value));
     }
   }
 
   get memberAddress(): Bytes {
     let value = this.get("memberAddress");
-    return value.toBytes();
+    return value!.toBytes();
   }
 
   set memberAddress(value: Bytes) {
@@ -88,7 +99,7 @@ export class Content extends Entity {
 
   get content(): string {
     let value = this.get("content");
-    return value.toString();
+    return value!.toString();
   }
 
   set content(value: string) {
@@ -97,7 +108,7 @@ export class Content extends Entity {
 
   get contentType(): string {
     let value = this.get("contentType");
-    return value.toString();
+    return value!.toString();
   }
 
   set contentType(value: string) {
@@ -106,7 +117,7 @@ export class Content extends Entity {
 
   get location(): string {
     let value = this.get("location");
-    return value.toString();
+    return value!.toString();
   }
 
   set location(value: string) {
@@ -115,7 +126,7 @@ export class Content extends Entity {
 
   get title(): string | null {
     let value = this.get("title");
-    if (value === null || value.kind == ValueKind.NULL) {
+    if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
       return value.toString();
@@ -123,16 +134,16 @@ export class Content extends Entity {
   }
 
   set title(value: string | null) {
-    if (value === null) {
+    if (!value) {
       this.unset("title");
     } else {
-      this.set("title", Value.fromString(value as string));
+      this.set("title", Value.fromString(<string>value));
     }
   }
 
   get description(): string | null {
     let value = this.get("description");
-    if (value === null || value.kind == ValueKind.NULL) {
+    if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
       return value.toString();
@@ -140,16 +151,16 @@ export class Content extends Entity {
   }
 
   set description(value: string | null) {
-    if (value === null) {
+    if (!value) {
       this.unset("description");
     } else {
-      this.set("description", Value.fromString(value as string));
+      this.set("description", Value.fromString(<string>value));
     }
   }
 
   get ratified(): boolean {
     let value = this.get("ratified");
-    return value.toBoolean();
+    return value!.toBoolean();
   }
 
   set ratified(value: boolean) {
@@ -158,7 +169,7 @@ export class Content extends Entity {
 
   get rawData(): string {
     let value = this.get("rawData");
-    return value.toString();
+    return value!.toString();
   }
 
   set rawData(value: string) {

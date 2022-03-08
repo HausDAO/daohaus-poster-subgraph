@@ -25,7 +25,7 @@ module.exports.config = {
         name: "poster",
         template: "poster-ds.yaml",
         address: "0x917d84787A266F9D649d519A7Ec8445eA43514D8",
-        startBlock: 10065090,
+        startBlock: 10226613,
       },
     ],
     templates: [],

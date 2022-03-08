@@ -10,10 +10,10 @@ dataSources:
     source:
       address: '0x917d84787A266F9D649d519A7Ec8445eA43514D8'
       abi: Poster
-      startBlock: 10065090
+      startBlock: 10226613
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Post

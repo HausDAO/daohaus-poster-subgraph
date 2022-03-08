@@ -23,7 +23,11 @@ export namespace parser {
   export function getResultFromJson(content: string): JsonResult {
     let result: JsonResult;
     result.error = "none";
-    let jsonResult = json.try_fromBytes(ByteArray.fromUTF8(content) as Bytes);
+    let bytes = changetype<Bytes>(ByteArray.fromUTF8(content));
+
+    // let jsonResult = json.try_fromBytes(ByteArray.fromUTF8(content) as Bytes);
+    let jsonResult = json.try_fromBytes(bytes);
+
     if (jsonResult.isError) {
       result.error = "Failed to parse JSON";
       return result;
@@ -73,9 +77,10 @@ export namespace parser {
 
     let location = parser.getStringFromJson(object, "location");
     if (location.error != "none") {
-      return entity;
+      entity.location = "docs";
+    } else {
+      entity.location = location.data;
     }
-    entity.location = location.data;
 
     let title = parser.getStringFromJson(object, "title");
     if (title.error != "none") {
